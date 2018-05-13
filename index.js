@@ -11,7 +11,7 @@ function kraken(opts){
 	self.monitor = (!!opts.monitor);
 
 	// get device
-	self.device = (!!opts.device) ? new hid(0x1e71, 0x170e) : new hid(opts.device);
+	self.device = (!opts.device) ? new hid(0x1e71, 0x170e) : new hid(opts.device);
 
 	// default values
 	self.temp = null; // float degrees c
