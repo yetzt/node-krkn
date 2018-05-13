@@ -1,6 +1,6 @@
 {
   "name": "krkn",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "nzxt kraken x52/x62 usb interface controller library",
   "main": "index.js",
   "author": "yetzt <node@yetzt.me>",

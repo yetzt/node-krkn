@@ -41,8 +41,6 @@ kraken.prototype.update = function(fn){
 	// otherwise get values once and call back
 	self.device.once("data", function(data) {
 
-		console.log(data);
-
 		self.temp = (data[1] + data[2]/10);
 		self.fans = (data[3] << 8 | data[4]);
 		self.pump = (data[5] << 8 | data[6]);
@@ -142,9 +140,6 @@ kraken.prototype.setColors = function(mode, speed, colors){
 
 	colors.forEach(function(col,i){
 
-		// sequence: (i<<5 | mode[1])
-
-		// console.log([mode, (i<<5|speed)].concat(col).map(function(v){ return ("00"+v.toString(16)).substr(-2) }).join(" "));
 		try {
 			self.device.write([0x02, 0x4c, 0x00, mode, (i<<5|speed)].concat(col));
 		} catch (err) {
@@ -184,41 +179,5 @@ kraken.prototype.setPump = function(percent){
 	return this;
 };
 
-/*
-
-// new kraken().setColors('red', 2, ['#ff0000','#ffffff','#ffff00','#00ff00','#00ffff','#0000ff','#ff00ff','#ff0000','#000000']);
-
-new kraken().setColors('fading', 0, [
-	['#cc0033'],
-	['#cc0033'],
-	['#cc0099'],
-	['#ff0099'],
-	['#ff0099'],
-	['#ff0033'],
-*//*	['#000000','#ff0000','#0000ff'],
-	['#000000','#0000ff','#ff0000'],
-	['#ffffff','#cc0033','#3300cc'],
-	['#ffffff','#3300cc','#cc0033'],
-	['#ffffff','#ff0000','#0000ff'],
-	['#ffffff','#0000ff','#ff0000'],
-	*/
-//	['#111111','#00ff00'],
-//	['#111111','#0000ff'],
-// 	['#ffffff','#ffff00','#00ff00'],
-//	['#0000ff','#ff0000','#0000ff'],
-// ]); //.update(console.log).setFans(30).update(console.log);
-
-/* notes
-
-solid - 1+1-8 colors, 1 time
-fading - 0+1 colors, 8 times
-spectrum - colors ignored
-radar - 1+8 colors, 1 time
-marquee - 1+1 colors, 8 times
-police - 1+2 colors, 1 time
-breathing - 1+8 colors, 8 times
-pulse - 1+8 colors, 8 times
-spinner - 1+8 colors, 1 time, only colors 1+4 used
-chaser - no colors, might get stuck
-
-*/
+// sxport
+module.exports = kraken;
